@@ -35,10 +35,7 @@ class Kraph(f: Kraph.() -> Unit) {
     }
 
     fun toGraphQueryString() = document.operation.print(true, 0)
-
-    override fun toString(): String {
-        return document.print(false, 0)
-    }
+    fun toRequestString() = document.print(false, 0)
 
     inner open class FieldBuilder() {
         internal val fields = arrayListOf<Field>()

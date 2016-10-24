@@ -67,6 +67,12 @@ class BuilderSpek : Spek({
             it("should have field named email inside author object") {
                 assertThat(query.document.operation.selectionSet.fields[0].selectionSet!!.fields[2].selectionSet!!.fields[1].name, equalTo("email"))
             }
+            it("should print the request for network call") {
+                assertThat(query.toString(), equalTo(""))
+            }
+            it("should print GraphQL query content with pretty format") {
+                assertThat(query.toGraphQueryString(), equalTo(""))
+            }
         }
         given("sample query with no field in selection set") {
             it("should throw NoFieldsInSelectionSetException") {
