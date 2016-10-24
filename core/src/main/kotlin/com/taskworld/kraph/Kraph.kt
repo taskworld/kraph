@@ -34,7 +34,7 @@ class Kraph(f: Kraph.() -> Unit) {
         return set
     }
 
-    fun toGraphQueryString() = document.operation.print(true, 0).replace("\\n", "\n")
+    fun toGraphQueryString() = document.operation.print(true, 0)
 
     override fun toString(): String {
         return document.print(false, 0)

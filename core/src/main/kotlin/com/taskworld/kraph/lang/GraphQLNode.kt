@@ -10,13 +10,18 @@ abstract internal class GraphQLNode {
     abstract fun print(prettyFormat: Boolean, previousLevel: Int): String
 
     fun getIndentString(level: Int) = "\t".repeat(level)
+    fun getNewLineString(prettyFormat: Boolean) = if (prettyFormat) "\n" else "\\n"
 
-    fun Map<String, Any>.print() =
+    fun Map<String, Any>.print(prettyFormat: Boolean) =
             this.entries.foldIndexed("") { index, acc, entry ->
                 var string = acc + "${entry.key}: ${
                 when (entry.value) {
                     is String -> {
-                        "\\\"${entry.value}\\\""
+                        if (prettyFormat) {
+                            "\"${entry.value}\""
+                        } else {
+                            "\\\"${entry.value}\\\""
+                        }
                     }
                     else -> {
                         entry.value

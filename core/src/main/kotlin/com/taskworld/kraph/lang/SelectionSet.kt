@@ -8,9 +8,9 @@ internal class SelectionSet(internal val fields: List<Field>) : GraphQLNode() {
 
     override fun print(prettyFormat: Boolean, previousLevel: Int): String {
         if (prettyFormat) level = previousLevel + 1
-        return "{\\n${
-             fields.fold("") { acc, node ->
-                 acc + getIndentString(level) + node.print(prettyFormat, level) + "\\n"
+        return "{${
+             getNewLineString(prettyFormat) + fields.fold("") { acc, node ->
+                 acc + getIndentString(level) + node.print(prettyFormat, level) + getNewLineString(prettyFormat)
             } + getIndentString(previousLevel)
         }}"
     }
