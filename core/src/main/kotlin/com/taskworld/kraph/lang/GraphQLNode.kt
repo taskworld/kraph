@@ -9,7 +9,7 @@ abstract internal class GraphQLNode {
 
     abstract fun print(prettyFormat: Boolean, previousLevel: Int): String
 
-    fun getIndentString(level: Int) = "\t".repeat(level)
+    fun getIndentString(level: Int) = "  ".repeat(level)
     fun getNewLineString(prettyFormat: Boolean) = if (prettyFormat) "\n" else "\\n"
 
     fun Map<String, Any>.print(prettyFormat: Boolean) =
