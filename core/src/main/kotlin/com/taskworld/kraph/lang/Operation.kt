@@ -9,7 +9,7 @@ internal class Operation(internal val type: OperationType, internal val selectio
 
     override fun print(prettyFormat: Boolean, previousLevel: Int): String {
         val namePart = name?.let { " " + it } ?: ""
-        val argumentPart = arguments?.print(false, 0) ?: ""
+        val argumentPart = arguments?.print(prettyFormat, previousLevel) ?: ""
         return "${type.name.toLowerCase()}$namePart$argumentPart ${selectionSet.print(prettyFormat, previousLevel)}"
     }
 }

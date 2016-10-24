@@ -7,7 +7,7 @@ package com.taskworld.kraph.lang
 internal open class Field(internal val name: String, internal val arguments: Argument? = null, internal var selectionSet: SelectionSet? = null) : GraphQLNode() {
     override fun print(prettyFormat: Boolean, previousLevel: Int): String {
         val selectionSetPart = selectionSet?.let { " " + it.print(prettyFormat, previousLevel) } ?: ""
-        return "$name${arguments?.print(false, 0) ?: ""}$selectionSetPart"
+        return "$name${arguments?.print(prettyFormat, previousLevel) ?: ""}$selectionSetPart"
     }
 }
 

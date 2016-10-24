@@ -28,18 +28,10 @@ class GraphQLPrintSpek : Spek({
                 assertThat(node.print(false, 0), equalTo("(id: 1, title: \\\"Kraph\\\")"))
             }
         }
-    }
-    describe("InputArgument print function") {
-        given("id as argument and value as 1") {
-            val node = InputArgument(mapOf("id" to 1))
-            it("should print (input: { id: 1 })") {
-                assertThat(node.print(false, 0), equalTo("(input: { id: 1 })"))
-            }
-        }
-        given("name as argument and value as John Doe") {
-            val node = InputArgument(mapOf("name" to "John Doe"))
-            it("should print (input: { name: \\\"John Doe\\\" })") {
-                assertThat(node.print(false, 0), equalTo("(input: { name: \\\"John Doe\\\" })"))
+        given("id and title as arguments and value as 1 and Kraph with pretty format enabled") {
+            val node = Argument(mapOf("id" to 1, "title" to "Kraph"))
+            it("should print (id: 1, title: \"Kraph\")") {
+                assertThat(node.print(true, 0), equalTo("(id: 1, title: \"Kraph\")"))
             }
         }
     }
@@ -58,6 +50,15 @@ class GraphQLPrintSpek : Spek({
             val node = SelectionSet(fields)
             it("should print {id title assignee {name email}}") {
                 assertThat(node.print(false, 0), equalTo("{\\nid\\ntitle\\nassignee {\\nname\\nemail\\n}\\n}"))
+            }
+        }
+        given("three fields; id, title, and assignee which contains name and email with pretty format enabled") {
+            val assigneeSet = SelectionSet(listOf(Field("name"), Field("email")))
+            val assigneeField = Field("assignee", selectionSet = assigneeSet)
+            val fields = listOf(Field("id"), Field("title"), assigneeField)
+            val node = SelectionSet(fields)
+            it("should print {id title assignee {name email}} with pretty format") {
+                assertThat(node.print(true, 0), equalTo("{\n  id\n  title\n  assignee {\n    name\n    email\n  }\n}"))
             }
         }
     }

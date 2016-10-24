@@ -7,6 +7,7 @@ import com.taskworld.kraph.lang.Field
 import com.taskworld.kraph.lang.SelectionSet
 import com.taskworld.kraph.lang.relay.CursorConnection
 import com.taskworld.kraph.lang.relay.Edges
+import com.taskworld.kraph.lang.relay.InputArgument
 import com.taskworld.kraph.lang.relay.PageInfo
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -20,6 +21,26 @@ import org.junit.runner.RunWith
  */
 @RunWith(JUnitPlatform::class)
 class RelayPrintSpek : Spek({
+    describe("Relay InputArgument print function") {
+        given("id as argument and value as 1") {
+            val node = InputArgument(mapOf("id" to 1))
+            it("should print (input: { id: 1 })") {
+                assertThat(node.print(false, 0), equalTo("(input: { id: 1 })"))
+            }
+        }
+        given("name as argument and value as John Doe") {
+            val node = InputArgument(mapOf("name" to "John Doe"))
+            it("should print (input: { name: \\\"John Doe\\\" })") {
+                assertThat(node.print(false, 0), equalTo("(input: { name: \\\"John Doe\\\" })"))
+            }
+        }
+        given("name as argument and value as John Doe with pretty format enabled") {
+            val node = InputArgument(mapOf("name" to "John Doe"))
+            it("should print (input: { name: \"John Doe\" })") {
+                assertThat(node.print(true, 0), equalTo("(input: { name: \"John Doe\" })"))
+            }
+        }
+    }
     describe("Relay Edges print function") {
         given("edges with addtional field id") {
             val node = Edges(SelectionSet(listOf(Field("title"))), additionalField = listOf(Field("id")))
