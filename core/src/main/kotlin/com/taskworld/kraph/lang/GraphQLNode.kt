@@ -7,10 +7,7 @@ package com.taskworld.kraph.lang
 abstract internal class GraphQLNode {
     var level = 0
 
-    val indent: String
-        get() = "\t".repeat(level)
-
-    abstract fun print(): String
+    abstract fun print(prettyFormat: Boolean, previousLevel: Int): String
 
     fun getIndentString(level: Int) = "\t".repeat(level)
 

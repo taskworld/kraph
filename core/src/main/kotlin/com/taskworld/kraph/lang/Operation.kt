@@ -7,10 +7,10 @@ package com.taskworld.kraph.lang
 internal class Operation(internal val type: OperationType, internal val selectionSet: SelectionSet,
                          internal val name: String? = null, internal val arguments: Argument? = null) : GraphQLNode() {
 
-    override fun print(): String {
+    override fun print(prettyFormat: Boolean, previousLevel: Int): String {
         val namePart = name?.let { " " + it } ?: ""
-        val argumentPart = arguments?.print() ?: ""
-        return "${type.name.toLowerCase()}$namePart$argumentPart ${selectionSet.print()}"
+        val argumentPart = arguments?.print(false, 0) ?: ""
+        return "${type.name.toLowerCase()}$namePart$argumentPart ${selectionSet.print(prettyFormat, previousLevel)}"
     }
 }
 

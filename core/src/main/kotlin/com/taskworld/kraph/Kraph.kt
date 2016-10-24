@@ -34,10 +34,10 @@ class Kraph(f: Kraph.() -> Unit) {
         return set
     }
 
-    fun toQueryContentString() = document.operation.print()
+    fun toGraphQueryString() = document.operation.print(true, 0).replace("\\n", "\n")
 
     override fun toString(): String {
-        return document.print()
+        return document.print(false, 0)
     }
 
     inner open class FieldBuilder() {

@@ -7,7 +7,7 @@ import com.taskworld.kraph.lang.Argument
  */
 
 internal class InputArgument(args: Map<String, Any>) : Argument(args) {
-    override fun print(): String {
+    override fun print(prettyFormat: Boolean, previousLevel: Int): String {
         return "(input: { ${args.print()} })"
     }
 }

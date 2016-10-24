@@ -5,11 +5,11 @@ package com.taskworld.kraph.lang
  */
 
 internal class Document(internal val operation: Operation) : GraphQLNode() {
-    override fun print(): String {
+    override fun print(prettyFormat: Boolean, previousLevel: Int): String {
         val operationNamePart = operation.name?.let {
             "\"$it\""
         }
         val variablesPart = null
-        return "{\"query\": \"${operation.print()}\", \"variables\": $variablesPart, \"operationName\": $operationNamePart}"
+        return "{\"query\": \"${operation.print(prettyFormat, previousLevel)}\", \"variables\": $variablesPart, \"operationName\": $operationNamePart}"
     }
 }

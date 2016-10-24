@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
                 }
             }
         }
-    }.toQueryContentString())
+    }.toGraphQueryString())
 
     // Sample mutation
     println(Kraph {
@@ -26,7 +26,7 @@ fun main(args: Array<String>) {
                 field("updatedDate")
             }
         }
-    }.toQueryContentString())
+    }.toGraphQueryString())
 
 
 }
