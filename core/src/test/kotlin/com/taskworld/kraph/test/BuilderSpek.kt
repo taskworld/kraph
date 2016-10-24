@@ -14,9 +14,6 @@ import org.jetbrains.spek.api.dsl.it
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
-/**
- * Created by VerachadW on 9/20/2016 AD.
- */
 @RunWith(JUnitPlatform::class)
 class BuilderSpek : Spek({
     describe("Kraph Query DSL Builder") {

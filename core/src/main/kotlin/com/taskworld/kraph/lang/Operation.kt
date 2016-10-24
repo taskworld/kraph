@@ -5,7 +5,8 @@ package com.taskworld.kraph.lang
  */
 
 internal class Operation(internal val type: OperationType, internal val selectionSet: SelectionSet,
-                         internal val name: String? = null, internal val arguments: Argument? = null) : GraphPrintable {
+                         internal val name: String? = null, internal val arguments: Argument? = null) : GraphQLNode() {
+
     override fun print(): String {
         val namePart = name?.let { " " + it } ?: ""
         val argumentPart = arguments?.print() ?: ""

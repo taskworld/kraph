@@ -34,6 +34,8 @@ class Kraph(f: Kraph.() -> Unit) {
         return set
     }
 
+    fun toQueryContentString() = document.operation.print()
+
     override fun toString(): String {
         return document.print()
     }
