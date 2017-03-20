@@ -1,7 +1,7 @@
-package com.taskworld.kraph
+package me.lazmaid.kraph
 
-import com.taskworld.kraph.lang.*
-import com.taskworld.kraph.lang.relay.*
+import me.lazmaid.kraph.lang.*
+import me.lazmaid.kraph.lang.relay.*
 
 /**
  * Created by VerachadW on 9/19/2016 AD.

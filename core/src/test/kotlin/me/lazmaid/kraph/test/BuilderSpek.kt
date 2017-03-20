@@ -1,12 +1,12 @@
-package com.taskworld.kraph.test
+package me.lazmaid.kraph.test
 
 import com.natpryce.hamkrest.*
 import com.natpryce.hamkrest.assertion.assertThat
-import com.taskworld.kraph.Kraph
-import com.taskworld.kraph.NoFieldsInSelectionSetException
-import com.taskworld.kraph.lang.OperationType
-import com.taskworld.kraph.lang.relay.CursorConnection
-import com.taskworld.kraph.lang.relay.PageInfo
+import me.lazmaid.kraph.Kraph
+import me.lazmaid.kraph.NoFieldsInSelectionSetException
+import me.lazmaid.kraph.lang.OperationType
+import me.lazmaid.kraph.lang.relay.CursorConnection
+import me.lazmaid.kraph.lang.relay.PageInfo
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.given
