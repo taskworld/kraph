@@ -9,16 +9,22 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
-import org.junit.runner.RunWith
+import org.jetbrains.spek.api.dsl.on
 
-//@RunWith(JUnitPlatform::class)
 class GraphQLPrintSpek : Spek({
 
     describe("Argument print function") {
         given("id as argument and value as 1") {
             val node = Argument(mapOf("id" to 1))
-            it("should print (id: 1)") {
-                assertThat(node.print(false, 0), equalTo("(id: 1)"))
+            on("print pretty") {
+                it("should print (id: 1)") {
+                    assertThat(node.print(true, 0), equalTo("(id: 1)"))
+                }
+            }
+            on("print normal") {
+                it("should print (id: 1)") {
+                    assertThat(node.print(false, 0), equalTo("(id: 1)"))
+                }
             }
         }
         given("id and title as arguments and value as 1 and Kraph") {
@@ -36,7 +42,7 @@ class GraphQLPrintSpek : Spek({
         given("an array of string as argument") {
             val node = Argument(mapOf("titles" to listOf("title1", "title2")))
             it("should print (titles: [\"title1\", \"title2\"]") {
-                assertThat(node.print(true, 0), equalTo("(titles: [\\\"title1\\\", \\\"title2\\\"])"))
+                assertThat(node.print(false, 0), equalTo("(titles: [\\\"title1\\\", \\\"title2\\\"])"))
             }
         }
     }
