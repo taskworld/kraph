@@ -9,10 +9,9 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
-import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 
-@RunWith(JUnitPlatform::class)
+//@RunWith(JUnitPlatform::class)
 class GraphQLPrintSpek : Spek({
 
     describe("Argument print function") {
@@ -32,6 +31,12 @@ class GraphQLPrintSpek : Spek({
             val node = Argument(mapOf("id" to 1, "title" to "Kraph"))
             it("should print (id: 1, title: \"Kraph\")") {
                 assertThat(node.print(true, 0), equalTo("(id: 1, title: \"Kraph\")"))
+            }
+        }
+        given("an array of string as argument") {
+            val node = Argument(mapOf("titles" to listOf("title1", "title2")))
+            it("should print (titles: [\"title1\", \"title2\"]") {
+                assertThat(node.print(true, 0), equalTo("(titles: [\\\"title1\\\", \\\"title2\\\"])"))
             }
         }
     }
