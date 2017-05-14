@@ -19,8 +19,8 @@ abstract internal class GraphQLNode {
                 "\\\"$value\\\""
             }
 
-    fun Map<String, Any>.print(prettyFormat: Boolean) =
-            this.entries.foldIndexed("") { index, acc, entry ->
+    fun print(map: Map<String, Any>, prettyFormat: Boolean) =
+            map.entries.foldIndexed("") { index, acc, entry ->
                 var string = acc + "${entry.key}: ${
                 when (entry.value) {
                     is String -> {
@@ -32,14 +32,54 @@ abstract internal class GraphQLNode {
                             printEscaped(it as String, prettyFormat)
                         }
                     }
+                    is KraphDataObject -> {
+                        (entry.value as KraphDataObject).print()
+                    }
                     else -> {
                         entry.value
                     }
                 }}"
-                if (index != this.size - 1) {
+                if (index != map.size - 1) {
                     string += ", "
                 }
                 string
             }
 }
 
+class KraphDataObject : HashMap<String, Any>() {
+    private fun printList(list: List<Any?>): String {
+        list.fold("") { acc, item ->
+            when (item) {
+                is KraphDataObject -> {
+                    item.print()
+                }
+                is List<*> -> {
+                    printList(item)
+                }
+                else -> {
+                    item
+                }
+            }
+            acc
+        }
+    }
+
+    fun print() =
+            this.entries.forEach {
+                when (it.value) {
+                    is String -> {
+                        it.value
+                    }
+                    is List<*> -> {
+                        printList(it as List<Any?>)
+                    }
+                    is KraphDataObject -> {
+                        (it.value as KraphDataObject).print()
+                    }
+                    else {
+                    }
+                }
+            }
+}
+
+}
