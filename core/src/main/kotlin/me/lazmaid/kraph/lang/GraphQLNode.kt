@@ -28,6 +28,7 @@ abstract internal class GraphQLNode {
         })
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun convertToDataEntry(value: Any?) =
             when(value) {
                 is String -> {
@@ -39,8 +40,11 @@ abstract internal class GraphQLNode {
                 is Long -> {
                     DataEntry.NonDecimalNumberData(value)
                 }
-                is Float, Double -> {
-                    DataEntry.DecimalNumberData(value as Double)
+                is Float -> {
+                    DataEntry.DecimalNumberData(value.toDouble())
+                }
+                is Double -> {
+                    DataEntry.DecimalNumberData(value)
                 }
                 is List<*> -> {
                     convertToArrayData(value)
@@ -53,6 +57,13 @@ abstract internal class GraphQLNode {
                 }
             }
 }
+
+internal fun String.wrappedWithQuotes(shouldEscaped: Boolean) =
+        if (shouldEscaped) {
+            "\"$this\""
+        } else {
+            "\\\"$this\\\""
+        }
 
 internal sealed class DataEntry {
     abstract fun print(prettyFormat: Boolean): String
@@ -90,7 +101,7 @@ internal sealed class DataEntry {
     class ObjectData(val values: List<Pair<String, DataEntry>>) : DataEntry() {
         override fun print(prettyFormat: Boolean) =
                 values.foldIndexed("{") { index, acc, (k, v) ->
-                    var newAcc = acc + "$k: ${v.print(prettyFormat)}"
+                    var newAcc = acc + "${k.wrappedWithQuotes(prettyFormat)}: ${v.print(prettyFormat)}"
                     if (index != values.size - 1) {
                         newAcc += ", "
                     } else {
