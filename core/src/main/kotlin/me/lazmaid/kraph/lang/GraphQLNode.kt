@@ -8,25 +8,21 @@ abstract internal class GraphQLNode {
     fun getIndentString(level: Int) = "  ".repeat(level)
     fun getNewLineString(prettyFormat: Boolean) = if (prettyFormat) "\n" else "\\n"
 
-    fun print(value: Map<String, Any?>, prettyFormat: Boolean): String {
-        return value.entries.foldIndexed("") { index, acc, (k, v)->
+    fun print(value: Map<String, Any?>, prettyFormat: Boolean) =
+        value.entries.foldIndexed("") { index, acc, (k, v)->
             var newAcc = acc + "$k: ${convertToDataEntry(v).print(prettyFormat)}"
             if (index != value.entries.size - 1) {
                 newAcc += ", "
             }
             newAcc
         }
-    }
 
-    private fun convertToArrayData(value: List<*>): DataEntry.ArrayData {
-        return DataEntry.ArrayData(value.map(this::convertToDataEntry))
-    }
+    private fun convertToArrayData(value: List<*>): DataEntry.ArrayData = DataEntry.ArrayData(value.map(this::convertToDataEntry))
 
-    private fun convertToObjectData(map: Map<String, *>): DataEntry.ObjectData {
-        return DataEntry.ObjectData(map.map {
+    private fun convertToObjectData(map: Map<String, *>): DataEntry.ObjectData =
+        DataEntry.ObjectData(map.map {
             it.key to convertToDataEntry(it.value)
         })
-    }
 
     @Suppress("UNCHECKED_CAST")
     private fun convertToDataEntry(value: Any?) =
