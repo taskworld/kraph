@@ -53,7 +53,7 @@ abstract internal class GraphQLNode {
                     convertToObjectData(value as Map<String, *>)
                 }
                 else -> {
-                    throw RuntimeException("")
+                    throw RuntimeException("Unsupported Type")
                 }
             }
 }
