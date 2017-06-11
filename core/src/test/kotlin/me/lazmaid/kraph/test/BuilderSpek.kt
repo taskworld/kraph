@@ -71,6 +71,18 @@ class BuilderSpek : Spek({
                 assertThat(query.toGraphQueryString(), equalTo("query getAllNotes {\n  notes {\n    id\n    content\n    author {\n      name\n      email\n    }\n    avatarUrl(size: 100)\n  }\n}"))
             }
         }
+        given("sample query with aliases") {
+            val query = Kraph {
+                query("getAllNotes") {
+                    fieldObject("notes", alias = "aliasedNotes") {
+                        field("id", alias = "aliasedId")
+                    }
+                }
+            }
+            it("should be able to print the request for network call") {
+                assertThat(query.toRequestString(), equalTo("{\"query\": \"query getAllNotes {\\naliasedNotes: notes {\\naliasedId: id\\n}\\n}\", \"variables\": null, \"operationName\": \"getAllNotes\"}"))
+            }
+        }
         given("sample query with no field in selection set") {
             it("should throw NoFieldsInSelectionSetException") {
                 assertThat({
@@ -130,6 +142,18 @@ class BuilderSpek : Spek({
             }
             it("should have token field in mutation payload") {
                 assertThat(query.document.operation.selectionSet.fields[0].selectionSet!!.fields[1].name, equalTo("token"))
+            }
+        }
+        given("sample mutation with alias") {
+            val query = Kraph {
+                mutation {
+                    func("registerUser", alias = "aliasedRegisterUser", args = mapOf("email" to "abcd@efgh.com")) {
+                        field("id")
+                    }
+                }
+            }
+            it("should be able to print the request for network call") {
+                assertThat(query.toRequestString(), equalTo("{\"query\": \"mutation {\\naliasedRegisterUser: registerUser(input: { email: \\\"abcd@efgh.com\\\" }) {\\nid\\n}\\n}\", \"variables\": null, \"operationName\": null}"))
             }
         }
         given("sample mutation with no field in selection set") {
