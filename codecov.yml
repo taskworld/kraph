@@ -1,0 +1,3 @@
+coverage:
+  round: down
+  precision: 2
