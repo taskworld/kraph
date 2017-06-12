@@ -36,8 +36,23 @@ junitPlatform {
 
 jacocoTestReport {
     reports {
-        xml.enabled true
-        html.enabled false
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+    }
+}
+
+task jacocoRootReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn = subprojects.test
+    sourceDirectories = files(subprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(subprojects.sourceSets.main.output)
+    executionData = files(subprojects.jacocoTestReport.executionData)
+    onlyIf = {
+        true
+    }
+    reports {
+        xml.enabled = true
+        csv.enabled = false
     }
 }
 
