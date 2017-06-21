@@ -91,3 +91,27 @@ project.afterEvaluate {
                 executionData junitPlatformTestTask
             })
 }
+
+
+jacocoTestReport {
+    additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories = files(sourceSets.main.output)
+    executionData = files("$buildDir/jacoco/junitPlatformTest.exec")
+    onlyIf = {
+        true
+    }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+        csv.enabled = false
+    }
+
+    doFirst {
+        new File("$buildDir/classes/main").eachFileRecurse { file ->
+            if (file.name.contains('$$')) {
+                file.renameTo(file.path.replace('$$', '$'))
+            }
+        }
+    }
+}
