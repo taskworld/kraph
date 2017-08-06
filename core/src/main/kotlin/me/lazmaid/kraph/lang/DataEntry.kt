@@ -57,9 +57,3 @@ internal sealed class DataEntry {
     }
 }
 
-enum class ScalarType {
-    INTEGER,
-    FLOAT,
-    BOOLEAN,
-    STRING
-}
