@@ -145,7 +145,7 @@ class GraphQLPrintSpek : Spek({
         given("name registerUser with email and password as argument and payload contains id and token") {
             val argNode = InputArgument(mapOf("email" to "abcd@efgh.com", "password" to "abcd1234"))
             val setNode = SelectionSet(listOf(Field("id"), Field("token")))
-            val node = Mutation("registerUser", argNode, setNode)
+            val node = Mutation("registerUser", alias = null, arguments = argNode, selectionSet = setNode)
             on("print pretty") {
                 it("should print registerUser(input: { email: \"abcd@efgh.com\", password: \"abcd1234\" }){\n  id\n  token\n}") {
                     assertThat(node.print(true, 0), equalTo("registerUser(input: { email: \"abcd@efgh.com\", password: \"abcd1234\" }) {\n  id\n  token\n}"))
@@ -203,7 +203,7 @@ class GraphQLPrintSpek : Spek({
         given("name user and id argument with value as 10 and contains name and email") {
             val argNode = Argument(mapOf("id" to 10))
             val setNode = SelectionSet(listOf(Field("name"), Field("email")))
-            val node = Field("user", argNode, setNode)
+            val node = Field("user", alias = null, arguments = argNode, selectionSet = setNode)
             on("print pretty") {
                 it("should print user(id: 10) {\n  name\n  email\n") {
                     assertThat(node.print(true, 0), equalTo("user(id: 10) {\n  name\n  email\n}"))

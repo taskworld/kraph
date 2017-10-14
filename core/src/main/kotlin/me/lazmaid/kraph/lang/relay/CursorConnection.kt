@@ -9,9 +9,9 @@ import me.lazmaid.kraph.lang.SelectionSet
  * Created by VerachadW on 10/2/2016 AD.
  */
 
-internal class CursorConnection(name: String, argument: Argument, selectionSet: SelectionSet) : Field(name, arguments = argument, selectionSet = selectionSet)
+internal class CursorConnection(name: String, argument: Argument, selectionSet: SelectionSet) : Field(name, alias = null, arguments = argument, selectionSet = selectionSet)
 
-internal class Edges(nodeSelectionSet: SelectionSet, additionalField: List<Field> = listOf()) : Field("edges", selectionSet = SelectionSet(listOf(Field("node", selectionSet = nodeSelectionSet)) + additionalField))
+internal class Edges(nodeSelectionSet: SelectionSet, additionalField: List<Field> = listOf()) : Field("edges", alias = null, selectionSet = SelectionSet(listOf(Field("node", alias = null, selectionSet = nodeSelectionSet)) + additionalField))
 
-internal class PageInfo (pageSelectionSet: SelectionSet) : Field("pageInfo", selectionSet = pageSelectionSet)
+internal class PageInfo (pageSelectionSet: SelectionSet) : Field("pageInfo", alias = null, selectionSet = pageSelectionSet)
 
