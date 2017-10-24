@@ -122,6 +122,42 @@ First, let's see what Kraph provides for you.
     }
     ```
 
+-   `fragment` provides a mechanism for creating GraphQL Fragments. To use a fragment
+    in a query requires two steps. The first is to define the fragment, letting
+    Kraph know how to handle it later:
+    ```graphql
+    fragment UserFragment on User {
+      name
+      email
+      avatarUrl(size: 100)
+    }
+    ```
+    ```kotlin
+    Kraph.fragment("UserFragment") {
+        field("name")
+        field("email")
+        field("avatarUrl", mapOf("size" to 100))
+    }
+    ```
+    Then, when you are creating your query, you can simply use the fragment and
+    its fields will be expanded:
+    ```graphql
+    query {
+      users {
+        ...UserFragment
+      }
+    }
+    ```
+    ```kotlin
+    Kraph {
+        query("GetUsers") {
+            fieldObject("users") {
+                fragment("UserFragment")
+            }
+        }
+    }
+    ```
+
 #### Relay
 
 -   `func` represents a Field inside a Mutation block that follows the
