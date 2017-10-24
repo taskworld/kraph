@@ -48,8 +48,8 @@ class Kraph(f: Kraph.() -> Unit) {
             addField(name, args, builder)
         }
 
-        fun field(name: String, args: Map<String, Any>? = null) {
-            addField(name, args)
+        fun field(name: String, args: Map<String, Any>? = null, builder: FieldBlock? = null) {
+            addField(name, args, builder)
         }
 
         fun cursorConnection(name: String, first: Int = -1, last: Int = -1,
@@ -109,5 +109,3 @@ class Kraph(f: Kraph.() -> Unit) {
     }
 
 }
-
-
