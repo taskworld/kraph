@@ -52,6 +52,10 @@ class Kraph(f: Kraph.() -> Unit) {
             addField(name, args, builder)
         }
 
+        fun fragment(name: String) {
+            fragments[name]?.invoke(this) ?: throw NoSuchFragmentException("No fragment named \"$name\" has been defined.")
+        }
+
         fun cursorConnection(name: String, first: Int = -1, last: Int = -1,
                              before: String? = null, after: String? = null,
                              builder: CursorBlock) {
@@ -108,4 +112,11 @@ class Kraph(f: Kraph.() -> Unit) {
         }
     }
 
+
+    companion object {
+        private var fragments: Map<String, FieldBlock> = emptyMap()
+        fun fragment(name: String, builder: FieldBlock) {
+            fragments = fragments.plus(name to builder)
+        }
+    }
 }
