@@ -4,6 +4,7 @@ import com.natpryce.hamkrest.*
 import com.natpryce.hamkrest.assertion.assertThat
 import me.lazmaid.kraph.Kraph
 import me.lazmaid.kraph.NoFieldsInSelectionSetException
+import me.lazmaid.kraph.NoSuchFragmentException
 import me.lazmaid.kraph.lang.OperationType
 import me.lazmaid.kraph.lang.relay.CursorConnection
 import me.lazmaid.kraph.lang.relay.PageInfo
@@ -256,7 +257,7 @@ class BuilderSpek : Spek({
                     field("name")
                     field("email")
                 }
-                Kraph {
+                val query = Kraph {
                     query {
                         field("user") {
                             fragment("UserFragment")
@@ -279,7 +280,7 @@ class BuilderSpek : Spek({
 
 val cursorEmptyArgumentsMessageMatcher = Matcher(Exception::checkExceptionMessage, "There must be at least 1 argument for Cursor Connection")
 val pageInfoNoValidFieldMessageMatcher = Matcher(Exception::checkExceptionMessage, "Selection Set must contain hasNextPage and/or hasPreviousPage field")
-val noSuchFragmentMessageMatcher = Matcher(Exception::checkExceptionMessage, "No fragment named FakeFragment has been defined.")
+val noSuchFragmentMessageMatcher = Matcher(Exception::checkExceptionMessage, "No fragment named \"FakeFragment\" has been defined.")
 fun noFieldInSelectionSetMessageMatcher(name: String) = Matcher(Exception::checkExceptionMessage, "No field elements inside \"$name\" block")
 
 fun Exception.checkExceptionMessage(message: String) = this.message == message
