@@ -239,11 +239,47 @@ class BuilderSpek : Spek({
                 }, throws<NoFieldsInSelectionSetException>(pageInfoNoValidFieldMessageMatcher))
             }
         }
+        given("sample query using fragments") {
+            it("should throw a NoSuchFragmentException when the fragment doesn't exist") {
+                assertThat({
+                    Kraph {
+                        query {
+                            field("user") {
+                                fragment("FakeFragment")
+                            }
+                        }
+                    }
+                }, throws<NoSuchFragmentException>(noSuchFragmentMessageMatcher))
+            }
+            it("should expand the fields in the fragment when the fragment exists") {
+                Kraph.fragment("UserFragment") {
+                    field("name")
+                    field("email")
+                }
+                Kraph {
+                    query {
+                        field("user") {
+                            fragment("UserFragment")
+                        }
+                    }
+                }
+                it("should have a field named user inside query") {
+                    assertThat(query.document.operation.selectionSet.fields[0].name, equalTo("user"))
+                }
+                it("should have a field named name inside user") {
+                    assertThat(query.document.operation.selectionSet.fields[0].selectionSet!!.fields[0].name, equalTo("name"))
+                }
+                it("should have a field named email inside user") {
+                    assertThat(query.document.operation.selectionSet.fields[0].selectionSet!!.fields[1].name, equalTo("email"))
+                }
+            }
+        }
     }
 })
 
 val cursorEmptyArgumentsMessageMatcher = Matcher(Exception::checkExceptionMessage, "There must be at least 1 argument for Cursor Connection")
 val pageInfoNoValidFieldMessageMatcher = Matcher(Exception::checkExceptionMessage, "Selection Set must contain hasNextPage and/or hasPreviousPage field")
+val noSuchFragmentMessageMatcher = Matcher(Exception::checkExceptionMessage, "No fragment named FakeFragment has been defined.")
 fun noFieldInSelectionSetMessageMatcher(name: String) = Matcher(Exception::checkExceptionMessage, "No field elements inside \"$name\" block")
 
 fun Exception.checkExceptionMessage(message: String) = this.message == message
