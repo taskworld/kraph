@@ -96,8 +96,9 @@ First, let's see what Kraph provides for you.
         }
     }
     ```
--   `field` and `fieldObject` represent accessors for fields. The difference is
-    that `fieldObject`s can contain nested `field` and `fieldObject` queries.
+-   `field` and `fieldObject` represent accessors for fields. Though there are
+    technically no differences, `fieldObject` may be chosen for clarity to indicate
+    that a field must contain another set of nested fields as an argument.
     Both of them take a `Map<String, Any>` that maps Kotlin data types to the
     GraphQL data types for input objects.
     ```graphql
