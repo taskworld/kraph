@@ -7,53 +7,38 @@ import javax.xml.crypto.Data
  */
 
 internal sealed class DataEntry {
-    abstract fun print(prettyFormat: Boolean): String
+    abstract fun print(prettyFormat: Boolean, escapeStrings: Boolean): String
 
     class NonDecimalNumberData(val value: Long) : DataEntry() {
-        override fun print(prettyFormat: Boolean) = value.toString()
+        override fun print(prettyFormat: Boolean, escapeStrings: Boolean) = value.toString()
     }
 
     class DecimalNumberData(val value: Double) : DataEntry() {
-        override fun print(prettyFormat: Boolean) = value.toString()
+        override fun print(prettyFormat: Boolean, escapeStrings: Boolean) = value.toString()
     }
 
     class BooleanData(val value: Boolean) : DataEntry() {
-        override fun print(prettyFormat: Boolean) = value.toString()
+        override fun print(prettyFormat: Boolean, escapeStrings: Boolean) = value.toString()
     }
 
     class StringData(val value: String) : DataEntry() {
-        override fun print(prettyFormat: Boolean) =
-                if (prettyFormat) {
-                    "\"$value\""
-                } else {
+        override fun print(prettyFormat: Boolean, escapeStrings: Boolean) =
+                if (escapeStrings) {
                     "\\\"$value\\\""
+                } else {
+                    "\"$value\""
                 }
     }
 
     class ArrayData(val values: List<DataEntry>) : DataEntry() {
-        override fun print(prettyFormat: Boolean) =
-                values.foldIndexed("[") { index, acc, item ->
-                    var newAcc = acc + item.print(prettyFormat)
-                    if (index != values.size - 1) {
-                        newAcc += ", "
-                    } else {
-                        newAcc += "]"
-                    }
-                    newAcc
-                }
+        override fun print(prettyFormat: Boolean, escapeStrings: Boolean) =
+            "[${ values.joinToString(", ") { it.print(prettyFormat, escapeStrings) } }]"
     }
 
     class ObjectData(val values: List<Pair<String, DataEntry>>) : DataEntry() {
-        override fun print(prettyFormat: Boolean) =
-                values.foldIndexed("{") { index, acc, (k, v) ->
-                    var newAcc = acc + "${k.wrappedWithQuotes(prettyFormat)}: ${v.print(prettyFormat)}"
-                    if (index != values.size - 1) {
-                        newAcc += ", "
-                    } else {
-                        newAcc += "}"
-                    }
-                    newAcc
-                }
+        override fun print(prettyFormat: Boolean, escapeStrings: Boolean) =
+            "{${ values.joinToString(", ") { (k, v) ->
+                "${k}: ${v.print(prettyFormat, escapeStrings)}"
+            } }}"
     }
 }
-

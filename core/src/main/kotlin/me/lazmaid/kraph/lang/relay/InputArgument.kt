@@ -7,7 +7,11 @@ import me.lazmaid.kraph.lang.Argument
  */
 
 internal class InputArgument(args: Map<String, Any>) : Argument(args) {
-    override fun print(prettyFormat: Boolean, previousLevel: Int): String {
-        return "(input: { ${print(args, prettyFormat)} })"
+    override fun print(
+        prettyFormat: Boolean,
+        escapeStrings: Boolean,
+        previousLevel: Int
+    ): String {
+        return "(input: { ${print(args, prettyFormat, escapeStrings)} })"
     }
 }

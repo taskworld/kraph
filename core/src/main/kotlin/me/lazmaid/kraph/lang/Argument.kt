@@ -5,7 +5,11 @@ package me.lazmaid.kraph.lang
  */
 
 internal open class Argument(internal val args: Map<String, Any> = mapOf()) : GraphQLNode() {
-    override fun print(prettyFormat: Boolean, previousLevel: Int): String {
-        return "(${print(args, prettyFormat)})"
+    override fun print(
+        prettyFormat: Boolean,
+        escapeStrings: Boolean,
+        previousLevel: Int
+    ): String {
+        return "(${print(args, prettyFormat, escapeStrings)})"
     }
 }
