@@ -24,13 +24,13 @@ class RequestSpek : Spek({
         describe("#toRequestString") {
             given("document with simple query") {
                 it("should print the entire document") {
-                    assertThat(query.toRequestString(), equalTo("{\"query\": \"query GetUser {\\nid\\n}\", \"variables\": null, \"operationName\": \"GetUser\"}"))
+                    assertThat(query.toRequestString(), equalTo("{\"query\": \"query GetUser { id }\", \"variables\": null, \"operationName\": \"GetUser\"}"))
                 }
             }
         }
         describe("#requestQueryString") {
             it("should print just the query portion of the document") {
-                assertThat(query.requestQueryString(), equalTo("query GetUser {\\nid\\n}"))
+                assertThat(query.requestQueryString(), equalTo("query GetUser { id }"))
             }
         }
         describe("#requestVariableString") {

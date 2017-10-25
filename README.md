@@ -250,6 +250,11 @@ First, let's see what Kraph provides for you.
      * }
      */
     ```
+-   `requestQueryString()`, `requestVariableString()` and `requestOperationName()`
+    provide more fine grained access to the components of the full request string,
+    which are sometimes necessary depending on your HTTP request builder and
+    GraphQL server setup. They provide the values for the `query`, `variables`,
+    and `operationName` parameters, respectively.
 
 ### Contributing to Kraph
 

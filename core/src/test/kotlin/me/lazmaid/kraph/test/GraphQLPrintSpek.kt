@@ -102,9 +102,9 @@ class GraphQLPrintSpek : Spek({
                     assertThat(node.print(true, 0), equalTo("(users: [{\"name\": \"user1\", \"email\": \"user1@test.com\"}, {\"name\": \"user2\", \"email\": \"user2@test.com\"}])"))
                 }
             }
-            on("print pretty") {
+            on("print normal") {
                 it("should print (users: [{\\\"name\\\": \\\"user1\\\", \\\"email\\\": \\\"user1@test.com\\\"}, {\\\"name\": \\\"user2\\\", \\\"email\\\": \\\"user2@test.com\\\"}])") {
-                    assertThat(node.print(false, 0), equalTo("(users: [{\\\"name\\\": \\\"user1\\\", \\\"email\": \\\"user1@test.com\\\"}, {\\\"name\\\": \\\"user2\\\", \\\"email\\\": \\\"user2@test.com\\\"}])"))
+                    assertThat(node.print(false, 0), equalTo("(users: [{\\\"name\\\": \\\"user1\\\", \\\"email\\\": \\\"user1@test.com\\\"}, {\\\"name\\\": \\\"user2\\\", \\\"email\\\": \\\"user2@test.com\\\"}])"))
                 }
             }
         }
@@ -120,7 +120,7 @@ class GraphQLPrintSpek : Spek({
             }
             on("print normal") {
                 it("should print {id title}") {
-                    assertThat(node.print(false, 0), equalTo("{\\nid\\ntitle\\n}"))
+                    assertThat(node.print(false, 0), equalTo("{ id title }"))
                 }
             }
         }
@@ -135,8 +135,8 @@ class GraphQLPrintSpek : Spek({
                 }
             }
             on("print normal") {
-                it("should print {\\nid\\ntitle\\nassignee {\\nname\\nemail\\n}\\n}") {
-                    assertThat(node.print(false, 0), equalTo("{\\nid\\ntitle\\nassignee {\\nname\\nemail\\n}\\n}"))
+                it("should print { id title assignee { name email } }") {
+                    assertThat(node.print(false, 0), equalTo("{ id title assignee { name email } }"))
                 }
             }
         }
@@ -153,7 +153,7 @@ class GraphQLPrintSpek : Spek({
             }
             on("print normal") {
                 it("should print registerUser(input: { email: \\\"abcd@efgh.com\\\", password: \\\"abcd1234\\\" }){ id token }") {
-                    assertThat(node.print(false, 0), equalTo("registerUser(input: { email: \\\"abcd@efgh.com\\\", password: \\\"abcd1234\\\" }) {\\nid\\ntoken\\n}"))
+                    assertThat(node.print(false, 0), equalTo("registerUser(input: { email: \\\"abcd@efgh.com\\\", password: \\\"abcd1234\\\" }) { id token }"))
                 }
             }
         }
@@ -195,8 +195,8 @@ class GraphQLPrintSpek : Spek({
                 }
             }
             on("print normal") {
-                it("should print assignee {\\nname\\nemail\\n}") {
-                    assertThat(node.print(false, 0), equalTo("assignee {\\nname\\nemail\\n}"))
+                it("should print assignee { name email }") {
+                    assertThat(node.print(false, 0), equalTo("assignee { name email }"))
                 }
             }
         }
@@ -210,8 +210,8 @@ class GraphQLPrintSpek : Spek({
                 }
             }
             on("print normal") {
-                it("should print user(id: 10) {\\nname\\nemail\\n}") {
-                    assertThat(node.print(false, 0), equalTo("user(id: 10) {\\nname\\nemail\\n}"))
+                it("should print user(id: 10) { name email }") {
+                    assertThat(node.print(false, 0), equalTo("user(id: 10) { name email }"))
                 }
             }
         }
@@ -225,8 +225,8 @@ class GraphQLPrintSpek : Spek({
                 }
             }
             on("print normal") {
-                it("should print query {\\nid\\n}") {
-                    assertThat(node.print(false, 0), equalTo("query {\\nid\\n}"))
+                it("should print query { id }") {
+                    assertThat(node.print(false, 0), equalTo("query { id }"))
                 }
             }
         }
@@ -238,8 +238,8 @@ class GraphQLPrintSpek : Spek({
                 }
             }
             on("print normal") {
-                it("should print query getTask {\\nid\\n}") {
-                    assertThat(node.print(false, 0), equalTo("query getTask {\\nid\\n}"))
+                it("should print query getTask { id }") {
+                    assertThat(node.print(false, 0), equalTo("query getTask { id }"))
                 }
             }
         }
@@ -252,8 +252,8 @@ class GraphQLPrintSpek : Spek({
                 }
             }
             on("print normal") {
-                it("should print query getTask(id: 1234) {\\ntitle\\n}") {
-                    assertThat(node.print(false, 0), equalTo("query getTask(id: 1234) {\\ntitle\\n}"))
+                it("should print query getTask(id: 1234) { title }") {
+                    assertThat(node.print(false, 0), equalTo("query getTask(id: 1234) { title }"))
                 }
             }
         }
@@ -269,7 +269,7 @@ class GraphQLPrintSpek : Spek({
             }
             on("print normal") {
                 it("should print document {\"query\":\"query { id }\", \"variables\": null, \"operationName\": null}") {
-                    assertThat(node.print(false, 0), equalTo("{\"query\": \"query {\\nid\\n}\", \"variables\": null, \"operationName\": null}"))
+                    assertThat(node.print(false, 0), equalTo("{\"query\": \"query { id }\", \"variables\": null, \"operationName\": null}"))
                 }
             }
         }
@@ -283,7 +283,7 @@ class GraphQLPrintSpek : Spek({
             }
             on("print normal") {
                 it("should print document {\"query\":\"query getAllTasks { id }\", \"variables\": null, \"operationName\": \"getAllTasks\"}") {
-                    assertThat(node.print(false, 0), equalTo("{\"query\": \"query getAllTasks {\\nid\\n}\", \"variables\": null, \"operationName\": \"getAllTasks\"}"))
+                    assertThat(node.print(false, 0), equalTo("{\"query\": \"query getAllTasks { id }\", \"variables\": null, \"operationName\": \"getAllTasks\"}"))
                 }
             }
         }

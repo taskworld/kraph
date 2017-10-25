@@ -6,7 +6,7 @@ abstract internal class GraphQLNode {
     abstract fun print(prettyFormat: Boolean, previousLevel: Int): String
 
     fun getIndentString(level: Int) = "  ".repeat(level)
-    fun getNewLineString(prettyFormat: Boolean) = if (prettyFormat) "\n" else "\\n"
+    fun getNewLineString(prettyFormat: Boolean) = if (prettyFormat) "\n" else " "
 
     fun print(value: Map<String, Any?>, prettyFormat: Boolean) =
         value.entries.foldIndexed("") { index, acc, (k, v)->
@@ -63,4 +63,3 @@ internal fun String.wrappedWithQuotes(shouldEscaped: Boolean) =
         } else {
             "\\\"$this\\\""
         }
-
