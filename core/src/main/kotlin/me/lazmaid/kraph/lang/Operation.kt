@@ -12,6 +12,8 @@ internal class Operation(internal val type: OperationType, internal val selectio
         val argumentPart = arguments?.print(prettyFormat, previousLevel) ?: ""
         return "${type.name.toLowerCase()}$namePart$argumentPart ${selectionSet.print(prettyFormat, previousLevel)}"
     }
+
+    fun printName(): String? = name?.let { "\"$it\"" }
 }
 
 internal enum class OperationType {
