@@ -1,7 +1,5 @@
 package me.lazmaid.kraph.lang
 
-import javax.xml.crypto.Data
-
 /**
  * Created by vwongsawangt on 8/6/2017 AD.
  */
