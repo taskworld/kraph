@@ -245,7 +245,7 @@ class BuilderSpek : Spek({
                 assertThat({
                     Kraph {
                         query {
-                            field("user") {
+                            fieldObject("user") {
                                 fragment("FakeFragment")
                             }
                         }
@@ -253,13 +253,13 @@ class BuilderSpek : Spek({
                 }, throws<NoSuchFragmentException>(noSuchFragmentMessageMatcher))
             }
             it("should expand the fields in the fragment when the fragment exists") {
-                Kraph.fragment("UserFragment") {
+                Kraph.defineFragment("UserFragment") {
                     field("name")
                     field("email")
                 }
                 val query = Kraph {
                     query {
-                        field("user") {
+                        fieldObject("user") {
                             fragment("UserFragment")
                         }
                     }

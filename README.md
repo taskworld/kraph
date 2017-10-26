@@ -133,7 +133,7 @@ First, let's see what Kraph provides for you.
     }
     ```
     ```kotlin
-    Kraph.fragment("UserFragment") {
+    Kraph.defineFragment("UserFragment") {
         field("name")
         field("email")
         field("avatarUrl", mapOf("size" to 100))
