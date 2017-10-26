@@ -115,7 +115,7 @@ class Kraph(f: Kraph.() -> Unit) {
 
     companion object {
         private var fragments: Map<String, FieldBlock> = emptyMap()
-        fun fragment(name: String, builder: FieldBlock) {
+        fun defineFragment(name: String, builder: FieldBlock) {
             fragments = fragments.plus(name to builder)
         }
     }
