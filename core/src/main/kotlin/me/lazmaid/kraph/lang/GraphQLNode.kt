@@ -3,14 +3,14 @@ package me.lazmaid.kraph.lang
 abstract internal class GraphQLNode {
     var level = 0
 
-    abstract fun print(prettyFormat: Boolean, escapeStrings: Boolean, previousLevel: Int): String
+    abstract fun print(format: PrintFormat, previousLevel: Int): String
 
     fun getIndentString(level: Int) = "  ".repeat(level)
-    fun getNewLineString(prettyFormat: Boolean) = if (prettyFormat) "\n" else " "
+    fun getNewLineString(format: PrintFormat) = if (format == PrintFormat.PRETTY) "\n" else " "
 
-    fun print(value: Map<String, Any?>, prettyFormat: Boolean, escapeStrings: Boolean) =
+    fun print(value: Map<String, Any?>, format: PrintFormat) =
         value.entries.joinToString(", ") { (k, v) ->
-            "$k: ${convertToDataEntry(v).print(prettyFormat, escapeStrings)}"
+            "$k: ${convertToDataEntry(v).print(format)}"
         }
 
     private fun convertToArrayData(value: List<*>): DataEntry.ArrayData =
@@ -42,3 +42,9 @@ internal fun String.wrappedWithQuotes(shouldBeEscaped: Boolean) =
         } else {
             "\\\"$this\\\""
         }
+
+internal enum class PrintFormat {
+    NORMAL,
+    PRETTY,
+    JSON
+}

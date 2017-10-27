@@ -10,12 +10,11 @@ internal open class Field(
     internal var selectionSet: SelectionSet? = null
 ) : GraphQLNode() {
     override fun print(
-        prettyFormat: Boolean,
-        escapeStrings: Boolean,
+        format: PrintFormat,
         previousLevel: Int
     ): String {
-        val selectionSetPart = selectionSet?.print(prettyFormat, escapeStrings, previousLevel)?.let{ " $it" } ?: ""
-        val argumentsPart = arguments?.print(prettyFormat, escapeStrings, previousLevel)?.let{ " $it" } ?: ""
+        val selectionSetPart = selectionSet?.print(format, previousLevel)?.let{ " $it" } ?: ""
+        val argumentsPart = arguments?.print(format, previousLevel)?.let{ " $it" } ?: ""
         return "$name$argumentsPart$selectionSetPart"
     }
 }

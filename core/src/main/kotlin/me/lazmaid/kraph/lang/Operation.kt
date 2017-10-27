@@ -11,13 +11,12 @@ internal class Operation(
     internal val arguments: Argument? = null
 ) : GraphQLNode() {
     override fun print(
-        prettyFormat: Boolean,
-        escapeStrings: Boolean,
+        format: PrintFormat,
         previousLevel: Int
     ): String {
         val namePart = name?.let{ " $it" } ?: ""
-        val argumentPart = arguments?.print(prettyFormat, escapeStrings, previousLevel)?.let{ " $it" } ?: ""
-        return "${type.name.toLowerCase()}$namePart$argumentPart ${selectionSet.print(prettyFormat, escapeStrings, previousLevel)}"
+        val argumentPart = arguments?.print(format, previousLevel)?.let{ " $it" } ?: ""
+        return "${type.name.toLowerCase()}$namePart$argumentPart ${selectionSet.print(format, previousLevel)}"
     }
 }
 

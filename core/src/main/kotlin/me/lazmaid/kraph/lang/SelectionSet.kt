@@ -7,13 +7,12 @@ package me.lazmaid.kraph.lang
 internal class SelectionSet(internal val fields: List<Field>) : GraphQLNode() {
 
     override fun print(
-        prettyFormat: Boolean,
-        escapeStrings: Boolean,
+        format: PrintFormat,
         previousLevel: Int
     ): String {
-        val nl = getNewLineString(prettyFormat)
-        if (prettyFormat) level = previousLevel + 1 else level = 0
-        val fieldStr = fields.joinToString(nl) { getIndentString(level) + it.print(prettyFormat, escapeStrings, level) }
+        val nl = getNewLineString(format)
+        if (format == PrintFormat.PRETTY) level = previousLevel + 1 else level = 0
+        val fieldStr = fields.joinToString(nl) { getIndentString(level) + it.print(format, level) }
         return "{${ nl + fieldStr + nl + getIndentString(previousLevel) }}"
     }
 }

@@ -76,8 +76,7 @@ class BuilderSpek : Spek({
             it("should throw NoFieldsInSelectionSetException") {
                 assertThat({
                     Kraph {
-                        query {
-                        }
+                        query { }
                     }
                 }, throws(noFieldInSelectionSetMessageMatcher("query")))
             }
