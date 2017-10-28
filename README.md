@@ -255,7 +255,8 @@ First, let's see what Kraph provides for you.
     which are sometimes necessary depending on your HTTP request builder and
     GraphQL server setup. They provide the values for the `query`, `variables`,
     and `operationName` parameters, respectively, and so are good for creating
-    GET requests.
+    GET requests. Please note that `requestVariableString()` will always return
+    `null` until variable support is implemented.
 
 ### Contributing to Kraph
 
