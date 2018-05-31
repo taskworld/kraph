@@ -4,8 +4,7 @@ package me.lazmaid.kraph.lang
  * Created by VerachadW on 10/2/2016 AD.
  */
 
-internal class Document(internal val operation: Operation) : GraphQLNode() {
-    internal val variables: Variables = Variables()
+internal class Document(internal val operation: Operation, internal val variables: Variables) : GraphQLNode() {
     override fun print(
         format: PrintFormat,
         previousLevel: Int
