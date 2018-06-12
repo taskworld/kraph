@@ -10,7 +10,7 @@ internal class Document(internal val operation: Operation, internal val variable
         previousLevel: Int
     ): String {
         val operationNamePart = operation.name?.let{ "\"$it\"" }
-        val variablesPart = variables.print()
+        val variablesPart = variables.takeUnless { it.isEmpty() }?.run { print(PrintFormat.JSON, previousLevel) }
         return "{\"query\": \"${operation.print(PrintFormat.JSON, previousLevel)}\", \"variables\": $variablesPart, \"operationName\": $operationNamePart}"
     }
 }

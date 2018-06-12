@@ -2,6 +2,8 @@ package me.lazmaid.kraph
 
 import me.lazmaid.kraph.lang.*
 import me.lazmaid.kraph.lang.relay.*
+import me.lazmaid.kraph.types.KraphVariable
+import me.lazmaid.kraph.types.KraphVariableType
 
 /**
  * Created by VerachadW on 9/19/2016 AD.
@@ -10,12 +12,6 @@ import me.lazmaid.kraph.lang.relay.*
 typealias FieldBlock = Kraph.FieldBuilder.() -> Unit
 typealias CursorBlock = Kraph.CursorSelectionBuilder.() -> Unit
 typealias NodeBlock = Kraph.NodeBuilder.() -> Unit
-
-data class KraphVariableType(val value: String)
-data class KraphVariable(val name: String, val type: KraphVariableType, val jsonValue: String) {
-    val dollarName: String
-        get() = "\$$name"
-}
 
 class Kraph(f: Kraph.() -> Unit) {
 
@@ -49,7 +45,7 @@ class Kraph(f: Kraph.() -> Unit) {
     fun toRequestString() = document.print(PrintFormat.JSON, 0)
 
     fun requestQueryString() = document.operation.print(PrintFormat.NORMAL, 0)
-    fun requestVariableString() = document.variables.print()
+    fun requestVariableString() = document.variables.print(PrintFormat.JSON, 0)
     fun requestOperationName() = document.operation.name
 
     inner open class FieldBuilder {

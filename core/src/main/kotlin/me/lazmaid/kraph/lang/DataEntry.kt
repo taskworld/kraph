@@ -1,7 +1,7 @@
 package me.lazmaid.kraph.lang
 
-import me.lazmaid.kraph.KraphVariable
-import me.lazmaid.kraph.KraphVariableType
+import me.lazmaid.kraph.types.KraphVariable
+import me.lazmaid.kraph.types.KraphVariableType
 
 /**
  * Created by vwongsawangt on 8/6/2017 AD.
