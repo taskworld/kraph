@@ -60,6 +60,11 @@ class GraphQLPrintSpek : Spek({
                     "(users: [{name: \"user1\", email: \"user1@test.com\"}, {name: \"user2\", email: \"user2@test.com\"}])",
                     "(users: [{name: \\\"user1\\\", email: \\\"user1@test.com\\\"}, {name: \\\"user2\\\", email: \\\"user2@test.com\\\"}])"
                 )
+            ),
+            Triple(
+                mapOf("type" to Type.SHORT),
+                "a single enum argument",
+                Expectation("(type: SHORT)", "(type: SHORT)", "(type: SHORT)")
             )
         )
         for((args, title, expectation) in tests) {
@@ -229,4 +234,8 @@ class GraphQLPrintSpek : Spek({
             }
         }
     }
-})
+}) {
+    private enum class Type {
+        SHORT
+    }
+}
