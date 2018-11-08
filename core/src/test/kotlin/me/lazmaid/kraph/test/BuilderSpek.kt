@@ -81,7 +81,7 @@ class BuilderSpek : Spek({
                 }
             }
             it("should be able to print the request for network call") {
-                assertThat(query.toRequestString(), equalTo("{\"query\": \"query getAllNotes {\\naliasedNotes: notes {\\naliasedId: id\\n}\\n}\", \"variables\": null, \"operationName\": \"getAllNotes\"}"))
+                assertThat(query.toRequestString(), equalTo("{\"query\": \"query getAllNotes {\n    aliasedNotes: notes {\n     aliasedId: id\n     }\n     }\", \"variables\": null, \"operationName\": \"getAllNotes\"}"))
             }
         }
         given("sample query with no field in selection set") {
