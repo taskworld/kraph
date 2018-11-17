@@ -158,7 +158,11 @@ class BuilderSpek : Spek({
                 }
             }
             it("should be able to print the request for network call") {
-                assertThat(query.toRequestString(), equalTo("{\"query\": \"mutation {\\naliasedRegisterUser: registerUser(input: { email: \\\"abcd@efgh.com\\\" }) {\\nid\\n}\\n}\", \"variables\": null, \"operationName\": null}"))
+                assertThat(query.toRequestString(),
+                    equalTo(
+                    "{\"query\": \"mutation { aliasedRegisterUser: registerUser (input: { email: \\\"abcd@efgh.com\\\" }) { id } }\", \"variables\": null, \"operationName\": null}"
+                    )
+                )
             }
         }
         given("sample mutation with no field in selection set") {
