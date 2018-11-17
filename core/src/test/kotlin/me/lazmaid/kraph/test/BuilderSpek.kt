@@ -84,13 +84,7 @@ class BuilderSpek : Spek({
                 assertThat(
                     query.toRequestString(),
                     equalTo(
-                        """
-                        query getAllNotes {
-                            aliasedNotes: notes {
-                                aliasedId: id
-                            }
-                        }
-                        """
+                        "{\"query\": \"query getAllNotes { aliasedNotes: notes { aliasedId: id } }\", \"variables\": null, \"operationName\": \"getAllNotes\"}"
                     )
                 )
             }
