@@ -132,7 +132,7 @@ class GraphQLPrintSpek : Spek({
         given("name RegisterUser with email and password and type of registrarion as argument and payload contains id and token") {
             val argNode = InputArgument(mapOf("email" to "abcd@efgh.com", "password" to "abcd1234", "type" to Type.EMAIL))
             val setNode = SelectionSet(listOf(Field("id"), Field("token")))
-            val node = Mutation("RegisterUser", argNode, setNode)
+            val node = Mutation("RegisterUser", arguments = argNode, selectionSet = setNode)
             it("should print correctly in NORMAL mode") {
                 assertThat(node.print(PrintFormat.NORMAL, 0), equalTo("RegisterUser (input: { email: \"abcd@efgh.com\", password: \"abcd1234\", type: EMAIL }) { id token }"))
             }
