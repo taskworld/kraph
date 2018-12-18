@@ -52,4 +52,8 @@ internal sealed class DataEntry {
                 "${k}: ${v.print(format)}"
             } }}"
     }
+
+    class EnumValue(private val value: Enum<*>) : DataEntry() {
+        override fun print(format: PrintFormat) = value.name
+    }
 }
