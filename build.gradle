@@ -10,15 +10,3 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
-
-publish {
-    userOrg = 'verachadw'
-    groupId = 'me.lazmaid.kraph'
-    artifactId = 'kraph'
-    bintrayUser = "$System.env.BINTRAY_USER"
-    bintrayKey = "$System.env.BINTRAY_API_KEY"
-    publishVersion = "$publish_version"
-    licences = ['MIT']
-    desc = 'GraphQL query builder written in Kotlin'
-    website = 'https://github.com/VerachadW/kraph'
-}
