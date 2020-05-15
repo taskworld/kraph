@@ -8,7 +8,7 @@ buildscript {
         hamkrest_version = '1.4.2.2'
         junit_version = '4.12'
         junit_platform_version = '1.0.0'
-
+        jacoco_version = '0.8.5'
     }
     repositories {
         mavenCentral()
@@ -80,7 +80,7 @@ project.afterEvaluate {
     // configure jacoco to analyze the junitPlatformTest task
     jacoco {
         // this tool version is compatible with
-        toolVersion = "0.8.5"
+        toolVersion = "$jacoco_version"
         applyTo junitPlatformTestTask
     }
 
@@ -105,13 +105,5 @@ jacocoTestReport {
         html.enabled = true
         xml.enabled = true
         csv.enabled = false
-    }
-
-    doFirst {
-        new File("$buildDir/classes/main").eachFileRecurse { file ->
-            if (file.name.contains('$$')) {
-                file.renameTo(file.path.replace('$$', '$'))
-            }
-        }
     }
 }
