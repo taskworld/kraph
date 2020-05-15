@@ -87,18 +87,17 @@ project.afterEvaluate {
     // create junit platform jacoco task
     project.task(type: JacocoReport, "junitPlatformJacocoReport",
             {
-                sourceDirectories = files("./src/main")
-                classDirectories = files("$buildDir/classes/main")
+                sourceDirectories.from = files("./src/main")
+                classDirectories.from = files("$buildDir/classes/main")
                 executionData junitPlatformTestTask
             })
 }
 
-
 jacocoTestReport {
-    additionalSourceDirs = files(sourceSets.main.allSource.srcDirs)
-    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
-    classDirectories = files(sourceSets.main.output)
-    executionData = files("$buildDir/jacoco/junitPlatformTest.exec")
+    additionalSourceDirs(files(sourceSets.main.allSource.srcDirs))
+    sourceDirectories.from = files(sourceSets.main.allSource.srcDirs)
+    classDirectories.from = files(sourceSets.main.output)
+    executionData.from = files("$buildDir/jacoco/junitPlatformTest.exec")
     onlyIf = {
         true
     }
