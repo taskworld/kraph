@@ -109,6 +109,21 @@ class BuilderSpek : Spek({
                 }, throws(noFieldInSelectionSetMessageMatcher("test")))
             }
         }
+        given("sample query with object and no supplied field builder") {
+            val query = Kraph {
+                query {
+                    fieldObject("test")
+                }
+            }
+            it("should not throw a NoFieldsInSelectionSetException and build the request correctly") {
+                assertThat(
+                    query.toRequestString(),
+                    equalTo(
+                        "{\"query\": \"query { test }\", \"variables\": null, \"operationName\": null}"
+                    )
+                )
+            }
+        }
         given("sample mutation") {
             val query = Kraph {
                 mutation {
