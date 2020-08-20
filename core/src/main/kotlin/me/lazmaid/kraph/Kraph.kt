@@ -51,7 +51,7 @@ class Kraph(f: Kraph.() -> Unit) {
     open inner class FieldBuilder {
         internal val fields = arrayListOf<Field>()
 
-        fun fieldObject(name: String, alias: String? = null, args: Map<String, Any>? = null, builder: FieldBlock) {
+        fun fieldObject(name: String, alias: String? = null, args: Map<String, Any>? = null, builder: FieldBlock? = null) {
             addField(name, alias, args, builder)
         }
 
